@@ -1,22 +1,70 @@
-@import "tailwindcss";
+/* styles.css */
 
-body{
-  background-color: #b1b7b8;
-  padding-left: 30%;
-  padding-right: 30%;
+
+
+body {
+    font-family: sans-serif;
+    background-color: #b1b7b8;
+    padding-left: 20%;
+  padding-right: 20%;
   padding-top: 2.5%;
 }
 
-
-/* Include the padding and border in an element's total width and height */
-* {
-  box-sizing: border-box;
+.app-container {
+    max-width: 1000px; /* Made wider to accommodate multiple lists */
+    margin: 0 auto;
+    background: rgb(88, 84, 84);
+    padding: 20px;
+    border-radius: 28px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    
 }
 
-/* Remove margins and padding from the list */
+.input-group {
+    text-align: center; /* Centers the inputs at the top */
+    margin-bottom: 20px;
+}
+
+input, select, button {
+    padding: 10px;
+    margin: 5px;
+}
+
+/* --- THIS IS THE LAYOUT ENGINE --- */
+.lists-container {
+    display: flex;              /* Enables the flexible layout */
+    justify-content: center;    /* 1. Places the first list right in the MIDDLE */
+    flex-wrap: wrap;            /* 2. Allows lists to drop to a NEW LINE if no space */
+    gap: 20px;                  /* Space between lists */
+    align-items: flex-start;    /* Prevents lists from stretching to match height of tallest list */
+}
+
+/* Individual Store Card Styling */
+.store-list {
+    /* flex: grow shrink basis 
+       This sets a target width of 250px. 
+       If the screen is huge, they won't stretch weirdly.
+    */
+    flex: 0 0 250px; 
+    
+    border: 1px solid #aa7575;
+    padding: 15px;
+    border-radius: 8px;
+    background: #c09f9f;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.store-list h3 {
+    margin-top: 0;
+    text-align: center;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+
 ul {
-  margin: 5px;
-  padding: 0;
+    padding-left: 20px;
+    text-align: left;
+    margin: 5px;
 }
 
 /* Style the list items */
@@ -27,18 +75,11 @@ ul li {
   background: #bc7e7e;
   font-size: 18px;
   transition: 0.2s;
+  list-style-type: none; /* Remove default bullets */
+  margin-bottom: 5px; 
   border-radius: 15px;
-  margin-top: 5px;
-  list-style-type: none;
-
-  /* make the list items unselectable */
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 
-/* Set all odd list items to a different color (zebra-stripes) */
 ul li:nth-child(odd) {
   background: #9b5757;
 }
@@ -48,16 +89,16 @@ ul li:hover {
   background: #ddd;
 }
 
-/* When clicked on, add a background color and strike out text */
+/* When clicked on, add a background and strike out text */
 ul li.checked {
   background: #888;
   color: #fff;
   text-decoration: line-through;
 }
 
-/* Add a "checked" mark when clicked on */
+/* Add a "checked" mark when checked */
 ul li.checked::before {
-  content: '';
+    content: '';
   position: absolute;
   border-color: #64b774;
   border-style: solid;
@@ -75,6 +116,7 @@ ul li.checked::before {
   right: 0;
   top: 0;
   padding: 12px 16px 12px 16px;
+  font-weight: bold; 
 }
 
 .close:hover {
@@ -82,52 +124,27 @@ ul li.checked::before {
   color: white;
 }
 
-/* Style the header */
-.header {
+
+.clear-btn {
+    width: 100%;
+    margin-top: 10px;
+    background-color: #fa7474; /* Red warning color */
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 4px;
+    padding: 8px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.clear-btn:hover {
+    background-color: #c04d4d;
+}
+
+.input-group {
   background-color: #a2413a;
   padding: 30px 40px;
   color: white;
   text-align: center;
   border-radius: 25px;
-}
-
-/* Clear floats after the header */
-.header:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* Style the input */
-input {
-  margin: 0;
-  border: none;
-  border-radius: 0;
-  width: 75%;
-  padding: 8px;
-  float: left;
-  font-size: 16px;
-  height: 38px;
-  margin-top: 10px;
-}
-
-/* Style the "Add" button */
-.addBtn {
-  padding: 8px;
-  width: 25%;
-  background: #aba0a0;
-  color: #555;
-  float: left;
-  text-align: center;
-  font-size: 16px;
-  cursor: pointer;
-  transition: 0.3s;
-  border-radius: 0;
-  height: 38px;
-  border: none;
-  margin-top: 10px;
-}
-
-.addBtn:hover {
-  background-color: #bbb;
 }
