@@ -3,7 +3,7 @@
 
 
 body {
-    font-family: sans-serif;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     background-color: #b1b7b8;
     padding-left: 20%;
   padding-right: 20%;
@@ -30,7 +30,7 @@ input, select, button {
     margin: 5px;
 }
 
-/* --- THIS IS THE LAYOUT ENGINE --- */
+
 .lists-container {
     display: flex;              /* Enables the flexible layout */
     justify-content: center;    /* 1. Places the first list right in the MIDDLE */
