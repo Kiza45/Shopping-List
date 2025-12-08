@@ -25,12 +25,12 @@ list.addEventListener('click', function(ev) {
   if (ev.target.tagName === 'LI') {
     ev.target.classList.toggle('checked');
   }
-}, false);
-
+}, false)
+;
 // Create a new list item when clicking on the "Add" button
 function newElement() {
   var li = document.createElement("li");
-  var inputValue = document.getElementById("myInput").value;
+  var inputValue = document.getElementById("itemInput").value;
   var t = document.createTextNode(inputValue);
   li.appendChild(t);
   if (inputValue === '') {
@@ -38,7 +38,7 @@ function newElement() {
   } else {
     document.getElementById("myUL").appendChild(li);
   }
-  document.getElementById("myInput").value = "";
+  document.getElementById("itemInput").value = "";
 
   var span = document.createElement("SPAN");
   var txt = document.createTextNode("\u00D7");
@@ -54,11 +54,13 @@ function newElement() {
   }
 } 
 
-var input = document.getElementById("myInput");
-input.addEventListener("keypress", function(event) {
+var itemInput = document.getElementById("itemInput");
+itemInput.addEventListener("keypress", function(event) {
   if (event.key === "Enter") {
     event.preventDefault();
     newElement()
   }
-}
+},
+
+
 );

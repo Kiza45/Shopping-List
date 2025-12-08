@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping List App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <h1>Shopping List</h1>
+
+        <div class="input-group">
+            <input type="text" id="item-input" placeholder="What to buy...">
+            
+            <select id="store-select">
+                <option value="" disabled selected>Select Store...</option>
+                <option value="Tesco">Tesco</option>
+                <option value="Lidl">Lidl</option>
+                <option value="Aldi">Aldi</option>
+                <option value="Sainsbury's">Sainsbury's</option>
+                <option value="Asda">Asda</option>
+                <option value="Boots">Boots</option>
+                <option value="Loon Fung">Loon Fung</option>
+                <option value="B&M">B&M</option>
+                <option value="Other">Other</option>
+            </select>
+            
+            <button id="add-btn">Add to List</button>
+        </div>
+
+        <hr>
+
+        <div id="lists-container" class="lists-container"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
