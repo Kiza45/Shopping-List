@@ -3,6 +3,23 @@ const storeSelect = document.getElementById('store-select');
 const addBtn = document.getElementById('add-btn');
 const listsContainer = document.getElementById('lists-container');
 
+document.addEventListener('DOMContentLoaded', loadData);
+
+function saveData() {
+    // We save the entire innerHTML of the container. 
+    // This is the simplest way for your current setup!
+    localStorage.setItem("shoppingListData", listsContainer.innerHTML);
+}
+
+function loadData() {
+    const savedData = localStorage.getItem("shoppingListData");
+    if (savedData) {
+        listsContainer.innerHTML = savedData;
+    }
+}
+
+
+
 // --- PART 1: ADDING ITEMS ---
 addBtn.addEventListener('click', () => {
     const itemName = itemInput.value.trim();
@@ -58,6 +75,8 @@ addBtn.addEventListener('click', () => {
 
     itemInput.value = '';
     itemInput.focus();
+
+    saveData();
 });
 
 // --- PART 2: CLICKING ITEMS (The Event Delegation) ---
@@ -72,11 +91,13 @@ listsContainer.addEventListener('click', function(e) {
         
         
         div.remove();
+        saveData();
     }
     
     // ACTION 2: Did they click the List Item (to check it off)?
     else if (e.target.tagName === 'LI') {
         e.target.classList.toggle('checked');
+        saveData();
     }
 
     // 3. CLICKED "CLEAR LIST" BUTTON
@@ -85,6 +106,7 @@ listsContainer.addEventListener('click', function(e) {
             // We find the parent (the store-list div) and remove it entirely
             const storeDiv = e.target.parentElement; 
             storeDiv.remove();
+            saveData();
         }
     }
     
