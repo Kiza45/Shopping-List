@@ -1,11 +1,29 @@
 /* styles.css */
+:root{
+    --bg-color: #F1F4F2;
+    --container-bg: #FFFFFF;
+    --input-group: #84A59D;
+    --text-main: #4A5D59;
+    --store-card: #F9FBFA;
+    --item-bg: #FFFFFF;
+    --delete-btn: #7B92A8;
+}
 
-
+[data-theme="dark"] {
+    /* DARK MODE COLORS */
+    --bg-color: #1A1F1E;      /* Deep Forest Shadow */
+    --container-bg: #242B2A;  /* Midnight Sage */
+    --input-group: #3A4D49;   /* Dark Muted Sage */
+    --text-main: #DCE4E1;     /* Light Sage Grey */
+    --store-card: #2D3635;
+    --item-bg: #2D3635;
+    --delete-btn: #5E7185;    /* Muted Dark Blue */
+}
 
 body {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    color: #4A5D59;
-    background-color: #F1F4F2;
+    color: var(--text-main);
+    background-color: var(--bg-color);
     /*padding-left: 20%;
   padding-right: 20%;
   padding-top: 2.5%; */
@@ -13,13 +31,14 @@ body {
   padding: 10px;
   display: flex;
   justify-content: center;
+  transition: all 0.3s ease;
 }
 
 .app-container {
     width: 95%;
     max-width: 1000px; /* Made wider to accommodate multiple lists */
     margin: 20px auto;
-    background: #ffffff;
+    background: var(--container-bg);
     padding: 15px;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(132, 165, 157, 0.15); /* Soft sage shadow */
@@ -29,7 +48,7 @@ body {
 .input-group {
     /*text-align: center; /* Centers the inputs at the top */
    /* margin-bottom: 20px; */
-    background-color: #84A59D;
+    background-color: var(--container-bg);
     padding: 20px;
     border-radius: 15px;
     display: flex;
@@ -96,7 +115,7 @@ select {
     flex: 1 1 300px; /* Allows cards to grow and shrink, minimum 300px width */
     max-width: 100%; /* Prevents horizontal scrolling on tiny screens */
     box-sizing: border-box;
-    background: #F9FBFA;
+    background: var(--store-card);
     border: 1px solid #DCE4E1;
     border-radius: 8px;
     padding: 15px;
@@ -122,8 +141,8 @@ ul li {
   cursor: pointer;
   position: relative;
   padding: 12px 8px 12px 40px;
-  background: #ffffff;
-  color: #5E7D76;
+  background: var(--item-bg);
+  color: var(--text-main);
   border: 1px solid #F0F4F3;
   font-size: 18px;
   transition: 0.2s;
@@ -180,7 +199,7 @@ ul li.checked::before {
 .clear-btn {
     width: 100%;
     margin-top: 10px;
-    background-color: #7B92A8; /* Muted Taupe */
+    background-color: var(--delete-btn); /* Muted Taupe */
     color: white;
     border: none;
     border-radius: 4px;
@@ -215,4 +234,14 @@ button#add-btn {
     button {
         flex: 1; /* Keep button smaller */
     }
+}
+
+#theme-toggle {
+    cursor: pointer;
+    background: none;
+    border: 2px solid var(--text-main);
+    color: var(--text-main);
+    padding: 5px 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
 }
