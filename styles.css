@@ -48,7 +48,7 @@ body {
 .input-group {
     /*text-align: center; /* Centers the inputs at the top */
    /* margin-bottom: 20px; */
-    background-color: var(--container-bg);
+    background-color: var(--input-group);
     padding: 20px;
     border-radius: 15px;
     display: flex;
@@ -62,11 +62,11 @@ select {
     padding: 12px 15px;
     margin: 8px 0;
     display: inline-block;
-    border: 1px solid #C0D6D0; 
+   border: 1px solid var(--input-group); 
     border-radius: 12px;       /* Match the rounded look of the app */
     box-sizing: border-box;
-    background-color: #FFFFFF;
-    color: #4A5D59;            /* Deep sage text color */
+    background-color: var(--item-bg);    /* Changed to variable */
+    color: var(--text-main);           /* Deep sage text color */
     font-size: 16px;           /* Prevents iOS from zooming in on focus */
     outline: none;             /* Remove default blue outline */
     transition: border 0.3s ease;
@@ -143,8 +143,7 @@ ul li {
   padding: 12px 8px 12px 40px;
   background: var(--item-bg);
   color: var(--text-main);
-  border: 1px solid #F0F4F3;
-  font-size: 18px;
+ border: 1px solid var(--bg-color);
   transition: 0.2s;
   list-style-type: none; /* Remove default bullets */
   margin-bottom: 5px; 
@@ -152,7 +151,7 @@ ul li {
 }
 
 ul li:nth-child(odd) {
-  background: #FBFDFD;
+  background: rgba(132, 165, 157, 0.05);
 }
 
 /* Darker background-color on hover */
