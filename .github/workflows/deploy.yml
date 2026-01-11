@@ -11,6 +11,19 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
+        
+      - name: Terraform Init & Validate
+        run: |
+          terraform init -backend=false
+          terraform validate
+
+      - name: HTML Lint
+        run: |
+          npx htmlhint "**/*.html"
+
+     
+      - name: tfsec
+        uses: aquasecurity/tfsec-action@v1.0.0
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -19,7 +32,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      # This syncs your folder to S3 and automatically sets MIME types
+    
       - name: Deploy to S3
         run: |
           aws s3 sync . s3://shopping-list-test-site --exclude ".git/*" --exclude ".github/*" --exclude "*.tf"
