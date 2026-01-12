@@ -11,9 +11,13 @@ resource "aws_s3_bucket" "website" {
 resource "aws_s3_bucket_public_access_block" "public_block" {
   bucket = aws_s3_bucket.website.id
 
+  # tfsec:ignore:aws-s3-block-public-acls
   block_public_acls       = false
+  # tfsec:ignore:aws-s3-block-public-policy
   block_public_policy     = false
+  # tfsec:ignore:aws-s3-ignore-public-acls
   ignore_public_acls      = false
+  # tfsec:ignore:aws-s3-no-public-buckets
   restrict_public_buckets = false
 }
 
@@ -53,18 +57,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "encrypt" {
   }
 }
 
-resource "aws_s3_bucket_public_access_block" "public_block" {
-  bucket = aws_s3_bucket.website.id
 
-  # tfsec:ignore:aws-s3-block-public-acls
-  block_public_acls       = false
-  # tfsec:ignore:aws-s3-block-public-policy
-  block_public_policy     = false
-  # tfsec:ignore:aws-s3-ignore-public-acls
-  ignore_public_acls      = false
-  # tfsec:ignore:aws-s3-no-public-buckets
-  restrict_public_buckets = false
-}
 resource "aws_s3_object" "index" {
   bucket       = aws_s3_bucket.website.id
   key          = "index.html"
