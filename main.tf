@@ -23,7 +23,6 @@ resource "aws_s3_bucket_website_configuration" "config" {
   index_document { suffix = "index.html" }
 }
 
-# 4. The Bucket Policy 
 resource "aws_s3_bucket_policy" "allow_public" {
   bucket = aws_s3_bucket.website.id
   policy = jsonencode({
@@ -38,7 +37,34 @@ resource "aws_s3_bucket_policy" "allow_public" {
   })
 }
 
+resource "aws_s3_bucket_versioning" "versioning" {
+  bucket = aws_s3_bucket.website.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
 
+resource "aws_s3_bucket_server_side_encryption_configuration" "encrypt" {
+  bucket = aws_s3_bucket.website.id
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "public_block" {
+  bucket = aws_s3_bucket.website.id
+
+  # tfsec:ignore:aws-s3-block-public-acls
+  block_public_acls       = false
+  # tfsec:ignore:aws-s3-block-public-policy
+  block_public_policy     = false
+  # tfsec:ignore:aws-s3-ignore-public-acls
+  ignore_public_acls      = false
+  # tfsec:ignore:aws-s3-no-public-buckets
+  restrict_public_buckets = false
+}
 resource "aws_s3_object" "index" {
   bucket       = aws_s3_bucket.website.id
   key          = "index.html"
