@@ -68,6 +68,28 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "encrypt" {
 }
 
 
+#Create a separate bucket just for logs
+resource "aws_s3_bucket" "log_bucket" {
+  bucket = "shopping-list-logs-unique-id" # Change this!
+}
+
+
+Set the log bucket's ownership
+resource "aws_s3_bucket_ownership_controls" "log_bucket_oc" {
+  bucket = aws_s3_bucket.log_bucket.id
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
+Connect website bucket to the log bucket
+resource "aws_s3_bucket_logging" "website_logging" {
+  bucket = aws_s3_bucket.website.id
+
+  target_bucket = aws_s3_bucket.log_bucket.id
+  target_prefix = "log/"
+}
+
 resource "aws_s3_object" "index" {
   bucket       = aws_s3_bucket.website.id
   key          = "index.html"
