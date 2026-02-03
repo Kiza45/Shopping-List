@@ -74,7 +74,7 @@ resource "aws_s3_bucket" "log_bucket" {
 }
 
 
-Set the log bucket's ownership
+#Set the log bucket's ownership
 resource "aws_s3_bucket_ownership_controls" "log_bucket_oc" {
   bucket = aws_s3_bucket.log_bucket.id
   rule {
@@ -82,7 +82,7 @@ resource "aws_s3_bucket_ownership_controls" "log_bucket_oc" {
   }
 }
 
-Connect website bucket to the log bucket
+#Connect website bucket to the log bucket
 resource "aws_s3_bucket_logging" "website_logging" {
   bucket = aws_s3_bucket.website.id
 
