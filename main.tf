@@ -75,7 +75,7 @@ resource "aws_s3_log_bucket" "log_bucket" {
 
 
 #Public Access Settings
-resource "aws_s3_log_bucket_public_access_block" "public_block" {
+resource "aws_s3_log_bucket_public_access_block" "log_bucket_public_block" {
   bucket = aws_s3_bucket.log_bucket.id
 
   # tfsec:ignore:aws-s3-block-public-acls
@@ -88,8 +88,8 @@ resource "aws_s3_log_bucket_public_access_block" "public_block" {
   restrict_public_buckets = false
 }
 
-resource "aws_s3_log_bucket_versioning" "versioning" {
-  bucket = aws_s3_log_bucket.log_bucket.id
+resource "aws_s3_bucket_versioning" "log_bucket_versioning" {
+  bucket = aws_s3_bucket.log_bucket.id
   versioning_configuration {
     status = "Enabled"
   }
