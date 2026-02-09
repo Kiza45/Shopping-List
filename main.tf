@@ -52,7 +52,34 @@ resource "aws_s3_bucket_versioning" "versioning" {
 resource "aws_kms_key" "my_key" {
   description             = "KMS key for S3 encryption"
   deletion_window_in_days = 7
-  enable_key_rotation     = true # Another "High" security best practice
+  enable_key_rotation     = true
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "Enable IAM User Permissions"
+        Effect = "Allow"
+        Principal = {
+          AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
+        }
+        Action   = "kms:*"
+        Resource = "*"
+      },
+      {
+        Sid    = "Allow S3 Logging to use the key"
+        Effect = "Allow"
+        Principal = {
+          Service = "logging.s3.amazonaws.com"
+        }
+        Action = [
+          "kms:GenerateDataKey*",
+          "kms:Decrypt"
+        ]
+        Resource = "*"
+      }
+    ]
+  })
 }
 
 
@@ -73,6 +100,22 @@ resource "aws_s3_bucket" "log_bucket" {
   bucket = "shopping-list-test-site-logs"
 }
 
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "log_bucket_encrypt" {
+  bucket = aws_s3_bucket.log_bucket.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      kms_master_key_id = aws_kms_key.my_key.arn
+      sse_algorithm     = "aws:kms"
+    }
+  }
+}
+
+# tfsec:ignore:aws-s3-enable-bucket-logging
+resource "aws_s3_bucket" "log_bucket" {
+  bucket = "shopping-list-test-site-logs"
+}
 
 #Public Access Settings
 resource "aws_s3_bucket_public_access_block" "log_bucket_public_block" {
