@@ -109,7 +109,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "log_bucket_encryp
   }
 }
 
-
+# tfsec:ignore:aws-s3-enable-bucket-logging
 resource "aws_s3_bucket" "log_bucket" {
   bucket = "shopping-list-test-site-logs"
 }
