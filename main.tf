@@ -69,23 +69,20 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "encrypt" {
 
 
 #Create a separate bucket just for logs
-resource "aws_s3_log_bucket" "log_bucket" {
+resource "aws_s3_bucket" "log_bucket" {
   bucket = "shopping-list-test-site-logs"
 }
 
 
 #Public Access Settings
-resource "aws_s3_log_bucket_public_access_block" "log_bucket_public_block" {
+resource "aws_s3_bucket_public_access_block" "log_bucket_public_block" {
   bucket = aws_s3_bucket.log_bucket.id
 
-  # tfsec:ignore:aws-s3-block-public-acls
-  block_public_acls       = false
-  # tfsec:ignore:aws-s3-block-public-policy
-  block_public_policy     = false
-  # tfsec:ignore:aws-s3-ignore-public-acls
-  ignore_public_acls      = false
-  # tfsec:ignore:aws-s3-no-public-buckets
-  restrict_public_buckets = false
+  # Changed these to 'true' since logs should stay private!
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
 }
 
 resource "aws_s3_bucket_versioning" "log_bucket_versioning" {
