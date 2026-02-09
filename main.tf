@@ -95,10 +95,6 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "encrypt" {
 }
 
 
-#Create a separate bucket just for logs
-resource "aws_s3_bucket" "log_bucket" {
-  bucket = "shopping-list-test-site-logs"
-}
 
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "log_bucket_encrypt" {
@@ -112,7 +108,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "log_bucket_encryp
   }
 }
 
-# tfsec:ignore:aws-s3-enable-bucket-logging
+
 resource "aws_s3_bucket" "log_bucket" {
   bucket = "shopping-list-test-site-logs"
 }
