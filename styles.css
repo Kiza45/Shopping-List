@@ -42,6 +42,7 @@ body {
     padding: 15px;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(132, 165, 157, 0.15); /* Soft sage shadow */
+    position: relative;
     
 }
 
@@ -243,4 +244,18 @@ button#add-btn {
     padding: 5px 10px;
     border-radius: 20px;
     margin-bottom: 10px;
+}
+
+#undo-button {
+    cursor: pointer;
+    background: none;
+    border: 2px solid var(--text-main);
+    color: var(--text-main);
+    padding: 5px 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    position: absolute;
+    right: 15px;
+    
+    
 }
