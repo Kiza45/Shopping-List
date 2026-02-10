@@ -132,6 +132,48 @@ function undo(){
     }
 }
 
-if (undoButtonElement) {
-    undoButtonElement.addEventListener('click', undo);
+ undoButtonElement.addEventListener('click', () =>{
+        captureUndo();
+        undo();
+    }
+);
+
+
+
+themeToggle.addEventListener('click', () => {
+    captureState();
+    const currentTheme = htmlElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    
+    htmlElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateToggleButton(newTheme);
+});
+
+//Redo Button functionality
+let undoStack = [];
+const redoButtonElement = document.getElementById('redo-button')
+
+function captureUndo(){
+    if (undoStack.length > 20){
+        undoStack.shift();
+    }
+    undoStack.push(listsContainer.innerHTML);
+}
+
+
+function redo(){
+     captureState()
+    if(undoStack.length > 0){
+        const previousUndo = undoStack.pop();
+        listsContainer.innerHTML = previousUndo;
+        saveData();
+    }
+    else{
+        alert("Nothing to redo!")
+    }
+}
+
+if (redoButtonElement) {
+    redoButtonElement.addEventListener('click', redo);
 }
