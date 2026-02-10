@@ -8,6 +8,11 @@ const htmlElement = document.documentElement;
 // --- INITIALIZATION ---
 document.addEventListener('DOMContentLoaded', () => {
     loadData();
+    const allLists = listsContainer.querySelectorAll('ul');
+    allLists.forEach(ul => {
+        initSortable(ul);
+    });
+
     captureState();
     // Initialize Theme
     const savedTheme = localStorage.getItem('theme') || 'light';
@@ -23,6 +28,7 @@ function loadData() {
     const savedData = localStorage.getItem("shoppingListData");
     if (savedData) {
         listsContainer.innerHTML = savedData;
+     
     }
 }
 
@@ -71,6 +77,8 @@ addBtn.addEventListener('click', () => {
         storeDiv.appendChild(ul);
         storeDiv.appendChild(clearBtn);
         listsContainer.appendChild(storeDiv);
+
+        initSortable(ul)
     }
 
     const ul = storeDiv.querySelector('ul');
@@ -125,6 +133,10 @@ function undo(){
     if(historyStack.length > 0){
         const previousState = historyStack.pop();
         listsContainer.innerHTML = previousState;
+
+        const allLists = listsContainer.querySelectorAll('ul');
+        allLists.forEach(ul => initSortable(ul));
+
         saveData();
     }
     else{
@@ -140,15 +152,6 @@ function undo(){
 
 
 
-themeToggle.addEventListener('click', () => {
-    captureState();
-    const currentTheme = htmlElement.getAttribute('data-theme');
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    
-    htmlElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    updateToggleButton(newTheme);
-});
 
 //Redo Button functionality
 let undoStack = [];
@@ -167,6 +170,10 @@ function redo(){
     if(undoStack.length > 0){
         const previousUndo = undoStack.pop();
         listsContainer.innerHTML = previousUndo;
+
+        const allLists = listsContainer.querySelectorAll('ul');
+        allLists.forEach(ul => initSortable(ul));
+
         saveData();
     }
     else{
@@ -176,4 +183,16 @@ function redo(){
 
 if (redoButtonElement) {
     redoButtonElement.addEventListener('click', redo);
+}
+
+
+// Drag and drop funtionality
+function initSortable(ulElement ){
+    new Sortable(ulElement, {
+        group: 'shared-lists',
+        ghostClass: 'sortable-ghost',
+        animation: 150,
+        onChoose: () => captureState(),
+        onEnd: () => saveData()
+    });
 }

@@ -269,3 +269,17 @@ button#add-btn {
     position: absolute;
     right: 15px;
 }
+
+.sortable-ghost {
+    opacity: 0.4;
+    background-color: #cbd5e1;
+    border: 2px dashed #64748b;
+}
+
+li {
+    cursor: grab;
+}
+
+li:active {
+    cursor: grabbing;
+}

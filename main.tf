@@ -35,8 +35,8 @@ resource "aws_s3_bucket_policy" "allow_public" {
     Statement = [{
       Sid       = "PublicReadGetObject"
       Effect    = "Allow"
-      Principal = "*"
-      Action    = "s3:GetObject"
+      Principal = "*"            # This means "Everyone"
+      Action    = "s3:GetObject" # This means "Read the files"
       Resource  = "${aws_s3_bucket.website.arn}/*"
     }]
   })
@@ -89,8 +89,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "encrypt" {
 
   rule {
     apply_server_side_encryption_by_default {
-      kms_master_key_id = aws_kms_key.my_key.arn # Use the new key
-      sse_algorithm     = "aws:kms"
+         sse_algorithm     = "AES256"
     }
   }
 }
@@ -153,6 +152,7 @@ resource "aws_s3_object" "index" {
   key          = "index.html"
   source       = "index.html" 
   content_type = "text/html"
+  etag         = filemd5("index.html")
 }
 
 
@@ -160,7 +160,8 @@ resource "aws_s3_object" "css" {
   bucket       = aws_s3_bucket.website.id
   key          = "styles.css"          
   source       = "styles.css"        
-  content_type = "text/css"       
+  content_type = "text/css"  
+  etag         = filemd5("styles.css")     
 }
 
 resource "aws_s3_object" "js" {
@@ -168,6 +169,7 @@ resource "aws_s3_object" "js" {
   key          = "app.js"         
   source       = "app.js"         
   content_type = "application/javascript" 
+  etag         = filemd5("app.js")
 }
 
 
