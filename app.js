@@ -8,6 +8,7 @@ const htmlElement = document.documentElement;
 // --- INITIALIZATION ---
 document.addEventListener('DOMContentLoaded', () => {
     loadData();
+    captureState();
     // Initialize Theme
     const savedTheme = localStorage.getItem('theme') || 'light';
     htmlElement.setAttribute('data-theme', savedTheme);
@@ -27,6 +28,7 @@ function loadData() {
 
 // --- DARK MODE LOGIC (Fixed Brackets) ---
 themeToggle.addEventListener('click', () => {
+    captureState();
     const currentTheme = htmlElement.getAttribute('data-theme');
     const newTheme = currentTheme === 'light' ? 'dark' : 'light';
     
@@ -41,6 +43,7 @@ function updateToggleButton(theme) {
 
 // --- PART 1: ADDING ITEMS ---
 addBtn.addEventListener('click', () => {
+    captureState();
     const itemName = itemInput.value.trim();
     const storeName = storeSelect.value;
 
@@ -85,8 +88,12 @@ addBtn.addEventListener('click', () => {
     saveData();
 });
 
-// --- PART 2: LIST INTERACTIONS ---
+
+
+
+// List Interactions ---
 listsContainer.addEventListener('click', function(e) {
+    captureState();
     if (e.target.className === 'close') {
         e.target.parentElement.remove();
         saveData();
@@ -100,3 +107,31 @@ listsContainer.addEventListener('click', function(e) {
         }
     }
 });
+
+
+//Undo Button functionality
+let historyStack = [];
+const undoButtonElement = document.getElementById('undo-button')
+
+function captureState(){
+    if (historyStack.length > 20){
+        historyStack.shift();
+    }
+    historyStack.push(listsContainer.innerHTML);
+}
+
+
+function undo(){
+    if(historyStack.length > 0){
+        const previousState = historyStack.pop();
+        listsContainer.innerHTML = previousState;
+        saveData();
+    }
+    else{
+        alert("Nothing to undo!")
+    }
+}
+
+if (undoButtonElement) {
+    undoButtonElement.addEventListener('click', undo);
+}
