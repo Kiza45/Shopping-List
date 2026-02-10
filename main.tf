@@ -35,8 +35,8 @@ resource "aws_s3_bucket_policy" "allow_public" {
     Statement = [{
       Sid       = "PublicReadGetObject"
       Effect    = "Allow"
-      Principal = "*"            # This means "Everyone"
-      Action    = "s3:GetObject" # This means "Read the files"
+      Principal = "*"
+      Action    = "s3:GetObject"
       Resource  = "${aws_s3_bucket.website.arn}/*"
     }]
   })
@@ -89,7 +89,8 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "encrypt" {
 
   rule {
     apply_server_side_encryption_by_default {
-         sse_algorithm     = "AES256"
+      kms_master_key_id = aws_kms_key.my_key.arn # Use the new key
+      sse_algorithm     = "aws:kms"
     }
   }
 }
