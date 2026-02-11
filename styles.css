@@ -63,7 +63,7 @@ select {
     padding: 12px 15px;
     margin: 8px 0;
     display: inline-block;
-   border: 1px solid var(--input-group); 
+   border: 2px solid var(--input-group); 
     border-radius: 12px;       /* Match the rounded look of the app */
     box-sizing: border-box;
     background-color: var(--item-bg);    /* Changed to variable */
@@ -77,6 +77,7 @@ select {
 input[type="text"]:focus, 
 select:focus {
     border: 2px solid #5E7D76; /* Darker sage when active */
+    box-shadow: 0 0 0 1px rgba(94, 125, 118, 0.2);
 }
 
 /* Style the placeholder text (the "What to buy..." text) */
