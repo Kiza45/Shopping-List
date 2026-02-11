@@ -145,11 +145,15 @@ ul li {
   padding: 12px 8px 12px 40px;
   background: var(--item-bg);
   color: var(--text-main);
- border: 1px solid var(--bg-color);
+  border: 1px solid var(--bg-color);
   transition: 0.2s;
   list-style-type: none; /* Remove default bullets */
   margin-bottom: 5px; 
   border-radius: 15px;
+  touch-action: none !important;
+  -webkit-user-select: none;
+  user-select: none;
+
 }
 
 ul li:nth-child(odd) {
@@ -283,4 +287,18 @@ li {
 
 li:active {
     cursor: grabbing;
+}
+
+.sortable-fallback {
+    list-style-type: none !important; /* Removes the bullet point */
+    width: 300px !important;           /* Match your .store-list width */
+    max-width: 90vw;                   /* Ensure it doesn't overflow mobile screens */
+    opacity: 0.95 !important;
+    background-color: var(--item-bg) !important;
+    border: 1px solid var(--input-group) !important;
+    border-radius: 15px !important;    /* Matches your original li radius */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2) !important;
+    z-index: 9999 !important;
+    pointer-events: none;              /* Prevents the item from blocking the drop */
+    padding: 12px 8px 12px 40px !important;
 }

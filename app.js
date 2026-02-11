@@ -192,6 +192,12 @@ function initSortable(ulElement ){
         group: 'shared-lists',
         ghostClass: 'sortable-ghost',
         animation: 150,
+
+        forceFallback: true,        
+        fallbackClass: "sortable-fallback", 
+        fallbackOnBody: true,     
+        swapThreshold: 0.65,
+
         onChoose: () => captureState(),
         onEnd: () => saveData()
     });
