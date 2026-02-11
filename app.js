@@ -198,6 +198,10 @@ function initSortable(ulElement ){
         fallbackOnBody: true,     
         swapThreshold: 0.65,
 
+        delay: 300,         
+        delayOnTouchOnly: true, 
+        touchStartThreshold: 10,
+
         onChoose: () => captureState(),
         onEnd: () => saveData()
     });
