@@ -198,7 +198,7 @@ function initSortable(ulElement ){
         fallbackOnBody: true,     
         swapThreshold: 0.65,
 
-        delay: 300,         
+        delay: 900,         
         delayOnTouchOnly: true, 
         touchStartThreshold: 10,
 
